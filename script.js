@@ -1,55 +1,82 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Button to change text and color
+document.addEventListener('DOMContentLoaded', function () {
+    // 1. Button click event
     const changeButton = document.getElementById('changeButton');
-    changeButton.addEventListener('click', function() {
+    changeButton.addEventListener('click', function () {
         changeButton.textContent = 'You Clicked Me!';
-        changeButton.style.backgroundColor = '#28a745'; // Changes the button color
+        changeButton.style.backgroundColor = '#28a745';
     });
 
-    // Image gallery: Change the image when the "Next Image" button is clicked
+    // 2. Hover effect with double-click secret
+    changeButton.addEventListener('dblclick', function () {
+        alert('Secret double-click activated! 🎉');
+    });
+
+    // 3. Image Gallery
     const images = ['image1.jpg', 'image2.jpg', 'image3.jpg'];
     let currentImageIndex = 0;
     const currentImage = document.getElementById('currentImage');
     const nextImageButton = document.getElementById('nextImage');
-    nextImageButton.addEventListener('click', function() {
-        currentImageIndex = (currentImageIndex + 1) % images.length; // Loops back to the first image
-        currentImage.src = images[currentImageIndex]; // Updates the image
+
+    nextImageButton.addEventListener('click', function () {
+        currentImage.classList.add('fade');
+        setTimeout(() => {
+            currentImageIndex = (currentImageIndex + 1) % images.length;
+            currentImage.src = images[currentImageIndex];
+            currentImage.classList.remove('fade');
+        }, 300);
     });
 
-    // Tabs: Show content when a tab is clicked
+    // 4. Tabs
     const tabs = document.querySelectorAll('.tab');
-    const tabContents = document.querySelectorAll('.tab-content');
+    const contents = document.querySelectorAll('.tab-content');
+
     tabs.forEach(tab => {
-        tab.addEventListener('click', function() {
-            // Hide all tab content
-            tabContents.forEach(content => content.classList.remove('active'));
-            // Show the content for the clicked tab
-            const contentId = `content${tab.id.charAt(tab.id.length - 1)}`;
+        tab.addEventListener('click', function () {
+            tabs.forEach(t => t.classList.remove('active'));
+            contents.forEach(c => c.classList.remove('active'));
+
+            tab.classList.add('active');
+            const contentId = `content${tab.id.slice(-1)}`;
             document.getElementById(contentId).classList.add('active');
         });
     });
 
-    // Form Validation
+    // 5. Form validation
     const form = document.getElementById('myForm');
-    form.addEventListener('submit', function(event) {
-        event.preventDefault(); // Prevent the form from submitting immediately
+    const passwordInput = document.getElementById('password');
+    const feedback = document.getElementById('passwordFeedback');
 
+    passwordInput.addEventListener('input', function () {
+        if (passwordInput.value.length < 8) {
+            feedback.textContent = 'Password must be at least 8 characters.';
+        } else {
+            feedback.textContent = '';
+        }
+    });
+
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
         const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
+        const password = passwordInput.value;
 
-        // Email validation
-        const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
         if (!emailRegex.test(email)) {
-            alert('Please enter a valid email address.');
-            return; // Stops the form submission
+            alert('Invalid email format.');
+            return;
         }
 
-        // Password validation (at least 6 characters)
-        if (password.length < 6) {
-            alert('Password must be at least 6 characters long.');
-            return; // Stops the form submission
+        if (password.length < 8) {
+            alert('Password must be at least 8 characters.');
+            return;
         }
 
         alert('Form submitted successfully!');
+    });
+
+    // 6. Keypress detection
+    const keyInfo = document.getElementById('keyInfo');
+    document.addEventListener('keydown', function (event) {
+        keyInfo.textContent = `You pressed: ${event.key}`;
     });
 });

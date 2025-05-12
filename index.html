@@ -1,38 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Interactive Playground</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
     <div class="container">
-        <!-- Button that changes color and text -->
+
+        <!-- Event Button -->
         <button id="changeButton">Click Me!</button>
 
         <!-- Image Gallery -->
         <div id="gallery">
-            <img id="currentImage" src="image1.jpg" alt="Gallery Image">
+            <img id="currentImage" src="image1.jpg" alt="Gallery Image" />
             <button id="nextImage">Next Image</button>
         </div>
 
-        <!-- Tabs -->
+        <!-- Tabs Section -->
         <div class="tabs">
-            <button class="tab" id="tab1">Tab 1</button>
+            <button class="tab active" id="tab1">Tab 1</button>
             <button class="tab" id="tab2">Tab 2</button>
-            <div id="content1" class="tab-content">Content for Tab 1</div>
-            <div id="content2" class="tab-content">Content for Tab 2</div>
+            <div id="content1" class="tab-content active">This is content for Tab 1</div>
+            <div id="content2" class="tab-content">This is content for Tab 2</div>
         </div>
 
-        <!-- Form with simple validation -->
+        <!-- Form -->
         <form id="myForm">
-            <input type="text" id="name" placeholder="Enter your name" required>
-            <input type="email" id="email" placeholder="Enter your email" required>
-            <input type="password" id="password" placeholder="Enter your password" required>
+            <input type="text" id="name" placeholder="Enter your name" required />
+            <input type="email" id="email" placeholder="Enter your email" required />
+            <input type="password" id="password" placeholder="Enter your password" required />
+            <div id="passwordFeedback"></div>
             <button type="submit">Submit</button>
         </form>
+
+        <!-- Keypress Info -->
+        <p id="keyInfo">Press any key...</p>
     </div>
 
     <script src="script.js"></script>
